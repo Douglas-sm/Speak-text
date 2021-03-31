@@ -1,0 +1,32 @@
+<div class="input-field col s12">
+    <div class="textSpeak">Olá, bom dia!</div>
+    <a href="#" class="btnSpeak"><img src="speaker.svg"></a>
+</div>
+
+
+<script src="jquery-3.6.0.min.js"></script>
+
+<script>
+$(function(){
+    if ('speechSynthesis' in window) {
+
+        $('.btnSpeak').click(function(){
+        let text = $('.textSpeak').text(),
+            msg = new SpeechSynthesisUtterance(),
+            voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[0];
+        msg.rate = 1;
+        msg.pitch = 1;
+        msg.text = text;
+
+        msg.onend = function(e) {
+            console.log('Finished in ' + event.elapsedTime + ' seconds.');
+        };
+
+        speechSynthesis.speak(msg);
+    })
+    } else {
+        alert('Recursos de áudio não estão habilitados para este dispositivo');
+    }
+});
+</script>
